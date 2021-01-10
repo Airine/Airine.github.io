@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>I/O on 一口闰心</title>
-    <link>https://blog.aaron-xin.tech/tags/i/o/</link>
+    <link>https://www.aaron-xin.tech/tags/i/o/</link>
     <description>Recent content in I/O on 一口闰心</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language><atom:link href="https://blog.aaron-xin.tech/tags/i/o/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh-CN</language><atom:link href="https://www.aaron-xin.tech/tags/i/o/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Step into Java I/O Stream</title>
-      <link>https://blog.aaron-xin.tech/posts/java-io-stream/</link>
+      <link>https://www.aaron-xin.tech/posts/java-io-stream/</link>
       <pubDate>Fri, 22 Feb 2019 18:37:40 +0800</pubDate>
       
-      <guid>https://blog.aaron-xin.tech/posts/java-io-stream/</guid>
+      <guid>https://www.aaron-xin.tech/posts/java-io-stream/</guid>
       <description>&lt;p&gt;In Java, I/O stream can be classified in two ways: 1. by I/O type, 2. by stream type.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;

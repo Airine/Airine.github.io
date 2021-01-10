@@ -2,9 +2,9 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on 一口闰心</title>
-    <link>https://blog.aaron-xin.tech/categories/</link>
+    <link>https://www.aaron-xin.tech/categories/</link>
     <description>Recent content in Categories on 一口闰心</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language><atom:link href="https://blog.aaron-xin.tech/categories/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh-CN</language><atom:link href="https://www.aaron-xin.tech/categories/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

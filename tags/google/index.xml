@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Google on 一口闰心</title>
-    <link>//airine.github.io/tags/google/</link>
+    <link>https://airine.github.io/tags/google/</link>
     <description>Recent content in Google on 一口闰心</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 31 Mar 2020 23:53:15 +0800</lastBuildDate><atom:link href="//airine.github.io/tags/google/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 31 Mar 2020 23:53:15 +0800</lastBuildDate><atom:link href="https://airine.github.io/tags/google/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>如何让谷歌搜索到个人网站</title>
-      <link>//airine.github.io/posts/google-search/</link>
+      <link>https://airine.github.io/posts/google-search/</link>
       <pubDate>Tue, 31 Mar 2020 23:53:15 +0800</pubDate>
       
-      <guid>//airine.github.io/posts/google-search/</guid>
+      <guid>https://airine.github.io/posts/google-search/</guid>
       <description>&lt;p&gt;在有了个人网站以后，总希望更多的人来踩一踩看一看。也希望自己写的博客能够真的分享被别人搜索到，达到博客应有的分享功能。但是了解以后才发现：&lt;strong&gt;网站能够被搜索引擎搜索到需要自己的网站被搜索引擎收录&lt;/strong&gt;。一般来说，能被搜索引擎所收录有三种途径：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;交钱：一次点击 &lt;em&gt;$0.05 USD&lt;/em&gt;， 适用于商业推广，并会现实在右栏（广告栏）。&lt;/li&gt;

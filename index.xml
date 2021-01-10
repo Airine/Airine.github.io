@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>一口闰心</title>
-    <link>//airine.github.io/</link>
+    <link>https://airine.github.io/</link>
     <description>Recent content on 一口闰心</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 01 May 2020 01:00:53 +0800</lastBuildDate><atom:link href="//airine.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 01 May 2020 01:00:53 +0800</lastBuildDate><atom:link href="https://airine.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>MacOS搭建Flutter开发环境 &#43; Android Studio &#43; Xcode</title>
-      <link>//airine.github.io/posts/flutter-environment/</link>
+      <link>https://airine.github.io/posts/flutter-environment/</link>
       <pubDate>Fri, 01 May 2020 01:00:53 +0800</pubDate>
       
-      <guid>//airine.github.io/posts/flutter-environment/</guid>
+      <guid>https://airine.github.io/posts/flutter-environment/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;注：这篇文章基本上搬运了&lt;a href=&#34;https://flutterchina.club/setup-macos/&#34;&gt;官方文档&lt;/a&gt;，并根据搭建过程进行一些增减。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -27,10 +27,10 @@
     
     <item>
       <title>如何在10分钟内用Docusaurus部署个人网站&#43;博客</title>
-      <link>//airine.github.io/posts/home-page/</link>
+      <link>https://airine.github.io/posts/home-page/</link>
       <pubDate>Mon, 13 Apr 2020 10:15:40 +0800</pubDate>
       
-      <guid>//airine.github.io/posts/home-page/</guid>
+      <guid>https://airine.github.io/posts/home-page/</guid>
       <description>&lt;h2 id=&#34;步骤&#34;&gt;步骤&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;注册 - 注册GitHub账号（如果你没有的话）&lt;/li&gt;
@@ -44,19 +44,19 @@
     
     <item>
       <title>Linksys WRT1900ACS 在刷OpenWrt和Linksys原固件时遇到的问题与解决方案</title>
-      <link>//airine.github.io/posts/linksys-openwrt/</link>
+      <link>https://airine.github.io/posts/linksys-openwrt/</link>
       <pubDate>Mon, 06 Apr 2020 00:22:58 +0800</pubDate>
       
-      <guid>//airine.github.io/posts/linksys-openwrt/</guid>
+      <guid>https://airine.github.io/posts/linksys-openwrt/</guid>
       <description>&lt;p&gt;主要记录了如何从OpenWRT刷回原厂固件，以及如何解决过程中遇到的各种问题。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>如何让谷歌搜索到个人网站</title>
-      <link>//airine.github.io/posts/google-search/</link>
+      <link>https://airine.github.io/posts/google-search/</link>
       <pubDate>Tue, 31 Mar 2020 23:53:15 +0800</pubDate>
       
-      <guid>//airine.github.io/posts/google-search/</guid>
+      <guid>https://airine.github.io/posts/google-search/</guid>
       <description>&lt;p&gt;在有了个人网站以后，总希望更多的人来踩一踩看一看。也希望自己写的博客能够真的分享被别人搜索到，达到博客应有的分享功能。但是了解以后才发现：&lt;strong&gt;网站能够被搜索引擎搜索到需要自己的网站被搜索引擎收录&lt;/strong&gt;。一般来说，能被搜索引擎所收录有三种途径：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;交钱：一次点击 &lt;em&gt;$0.05 USD&lt;/em&gt;， 适用于商业推广，并会现实在右栏（广告栏）。&lt;/li&gt;
@@ -67,19 +67,19 @@
     
     <item>
       <title>Signal in Process</title>
-      <link>//airine.github.io/posts/signal-in-process/</link>
+      <link>https://airine.github.io/posts/signal-in-process/</link>
       <pubDate>Sat, 14 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>//airine.github.io/posts/signal-in-process/</guid>
+      <guid>https://airine.github.io/posts/signal-in-process/</guid>
       <description>&lt;p&gt;&lt;strong&gt;Signals&lt;/strong&gt; in Linux, also called &lt;strong&gt;software interrupts&lt;/strong&gt;, is a part of process control. Moreover, the signal method is one of the &lt;strong&gt;IPC&lt;/strong&gt;(Inter-Process Communication) method, which is used to notify a process that an asynchronous event has occurred.&lt;strong&gt;Note&lt;/strong&gt; that the function is only to notify what events have occurred but &lt;strong&gt;does not pass any data.&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Step into Java I/O Stream</title>
-      <link>//airine.github.io/posts/java-io-stream/</link>
+      <link>https://airine.github.io/posts/java-io-stream/</link>
       <pubDate>Fri, 22 Feb 2019 18:37:40 +0800</pubDate>
       
-      <guid>//airine.github.io/posts/java-io-stream/</guid>
+      <guid>https://airine.github.io/posts/java-io-stream/</guid>
       <description>&lt;p&gt;In Java, I/O stream can be classified in two ways: 1. by I/O type, 2. by stream type.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;

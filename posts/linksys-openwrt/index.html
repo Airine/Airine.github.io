@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="一口闰心" />
+	
+	
+	
+	<title>Linksys WRT1900ACS 在刷OpenWrt和Linksys原固件时遇到的问题与解决方案 ｜ 一口闰心</title>
+	
+    
+    
+    <meta name="description" content="主要记录了如何从OpenWRT刷回原厂固件，以及如何解决过程中遇到的各种问题。
+" />
+    
+
+    
+    
+    <meta name="keywords" content="一口闰心, 田闰心, Airine" />
+    
+
+	
+    
+    <link rel="shortcut icon" href="https://blog.aaron-xin.tech/images/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="https://blog.aaron-xin.tech/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="https://blog.aaron-xin.tech/css/zozo.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="https://blog.aaron-xin.tech/css/highlight.css" />
+
+    
+    
+</head>
+
+<body>
+    <div class="main animate__animated animate__fadeInDown">
+        <div class="nav_container animated fadeInDown">
+    <div class="site_nav" id="site_nav">
+        <ul>
+            
+            <li>
+                <a href="/">主页</a>
+            </li>
+            
+            <li>
+                <a href="/posts/">归档</a>
+            </li>
+            
+            <li>
+                <a href="/tags/">标签</a>
+            </li>
+            
+            <li>
+                <a href="/about/">关于</a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="menu_icon">
+        <a id="menu_icon"><i class="ri-menu-line"></i></a>
+    </div>
+</div>
+        <div class="header animated fadeInDown">
+    <div class="site_title_container">
+        <div class="site_title">
+            <h1>
+                <a href="https://blog.aaron-xin.tech/">
+                    <span>一口闰心</span>
+                </a>
+            </h1>
+        </div>
+        <div class="description">
+            <p class="sub_title">心怀浪漫宇宙，珍惜人间日常。</p>
+            <div class="my_socials">
+                
+                
+                <a href="https://github.com/Airine" title="github" target="_blank"><i class="ri-github-fill"></i></a>
+                
+                
+                
+                <a href="https://www.instagram.com/airine0119/" title="instagram" target="_blank"><i class="ri-instagram-fill"></i></a>
+                
+                
+                <a href="https://blog.aaron-xin.tech/index.xml" type="application/rss+xml" title="rss" target="_blank"><i
+                        class="ri-rss-fill"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+        <div class="content">
+            <div class="post_page">
+                <div class="post animate__animated animate__fadeInDown">
+                    <div class="post_title post_detail_title">
+                        <h2><a href='/posts/linksys-openwrt/'>Linksys WRT1900ACS 在刷OpenWrt和Linksys原固件时遇到的问题与解决方案</a></h2>
+                        <span class="date">2020.04.06</span>
+                    </div>
+                    <div class="post_content markdown"><p>主要记录了如何从OpenWRT刷回原厂固件，以及如何解决过程中遇到的各种问题。</p>
+<h3 id="设备">设备</h3>
+<p>Linksys WRT1900AS 开源双频千兆Wi-Fi路由器</p>
+<p><img src="https://icdn4.digitaltrends.com/image/digitaltrends/linksys-wrt1900ac-999x666.jpg" alt="linksys"></p>
+<p><a href="https://openwrt.org/zh/toh/linksys/wrt1900ac#%E5%9B%BA%E4%BB%B6%E9%95%9C%E5%83%8F">OpenWRT.org</a></p>
+<h2 id="如何从openwrt回到原厂固件">如何从OpenWRT回到原厂固件</h2>
+<h3 id="1-恢复备份固件-由-edgeman-贡献">1. 恢复备份固件 （由 edgeman 贡献）</h3>
+<p>手动切换 WRT1900ac 废弃 flash 到第二 [备份] flash:</p>
+<ol>
+<li>
+<p>长按复位按钮复位路由直到电源灯开始闪烁 {一般需要大约 15 秒}</p>
+<p>一旦电源灯停止闪烁, 用电源开关关闭路由器</p>
+</li>
+<li>
+<p>重新打开电源，这时候电源灯点亮.</p>
+<p>在其他灯点亮的瞬间, 用电源开关关闭路由器.</p>
+</li>
+<li>
+<p>重新打开电源，这时候电源灯点亮.</p>
+<p>在其他灯点亮的瞬间, 用电源开关关闭路由器.</p>
+</li>
+<li>
+<p>重新打开电源，这时候电源灯点亮.</p>
+<p>在其他灯点亮的瞬间, 用电源开关关闭路由器.</p>
+</li>
+<li>
+<p>重新打开电源，这时候电源灯点亮.</p>
+<p>让路由完全启动，现在应该使用了第二固件.</p>
+</li>
+</ol>
+<p>说明:该方法仅在 u-Boot 的 auto_recovery 为开启状态才有效. 从 r46690 开始，OpenWrt 默认开启 auto_recovery 并且让它一直保持开启状态. 任何旧版本会在启动时把它关闭.</p>
+<ul>
+<li>当在不同的 OpenWRT 版本之间互刷的时候，始终推荐 <strong>首先</strong> 刷回原厂 (Linksys) 固件, 然后从原厂重新刷入新的 OpenWRT 固件（防止你在刷固件过程中遇到问题的预防措施）</li>
+</ul>
+<h3 id="2-通过cli回到另一个分区">2. 通过CLI回到另一个分区</h3>
+<p>通过<code>ssh</code>连接到路由器，密码就是登录OpenWRT时候的密码</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">ssh root@192.168.1.1
+</code></pre></div><p>Linksys WRT1900ACS 有两个固件分区（partition）一个是Linksys原厂的固件，另一个留给开源固件。首先通过命令<code>fw_printenv boot_part</code>查看当前位于哪个分区。然后，另外一个分区即为Linksys原厂固件，通过<code>fw_setenv boot_part &lt;#partition&gt;</code>切换固件分区。最后，<code>reboot</code>使配置生效。</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">BusyBox v1.30.1 <span class="o">()</span> built-in shell <span class="o">(</span>ash<span class="o">)</span>
+
+  _______                     ________        __
+ <span class="p">|</span>       <span class="p">|</span>.-----.-----.-----.<span class="p">|</span>  <span class="p">|</span>  <span class="p">|</span>  <span class="p">|</span>.----.<span class="p">|</span>  <span class="p">|</span>_
+ <span class="p">|</span>   -   <span class="o">||</span>  _  <span class="p">|</span>  -__<span class="p">|</span>     <span class="o">||</span>  <span class="p">|</span>  <span class="p">|</span>  <span class="o">||</span>   _<span class="o">||</span>   _<span class="p">|</span>
+ <span class="p">|</span>_______<span class="o">||</span>   __<span class="p">|</span>_____<span class="p">|</span>__<span class="p">|</span>__<span class="o">||</span>________<span class="o">||</span>__<span class="p">|</span>  <span class="p">|</span>____<span class="p">|</span>
+          <span class="p">|</span>__<span class="p">|</span> W I R E L E S S   F R E E D O M
+ -----------------------------------------------------
+ OpenWrt 19.07.2, r10947-65030d81f3
+ -----------------------------------------------------
+root@OpenWrt:~# fw_printenv boot_part
+<span class="nv">boot_part</span><span class="o">=</span><span class="m">1</span>
+root@OpenWrt:~# fw_setenv boot_part <span class="m">2</span>
+root@OpenWrt:~# reboot
+</code></pre></div><h3 id="3-重新下载linksys固件并安装">3. 重新下载Linksys固件并安装</h3>
+<ol>
+<li>
+<p>点击下载固件v.<a href="http://www.protechs-online.com/downloads/FW_WRT1900AC_1.1.8.164461_prod.img">1.1.8</a></p>
+</li>
+<li>
+<p>通过<code>scp</code>将固件镜像传到Linksys</p>
+</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">$ scp FW_WRT1900AC_1.1.8.164461_prod.img root@192.168.1.1:/tmp/
+
+FW_WRT1900AC_1.1.8.164461_prod.img              100%   25MB  10.9MB/s   00:02
+</code></pre></div><ol start="3">
+<li>安装原厂固件</li>
+</ol>
+<p>输入<code>sysupgrade</code>命令后，路由器将开始更新，并使用原厂固件重新启动。</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">BusyBox v1.30.1 <span class="o">()</span> built-in shell <span class="o">(</span>ash<span class="o">)</span>
+
+  _______                     ________        __
+ <span class="p">|</span>       <span class="p">|</span>.-----.-----.-----.<span class="p">|</span>  <span class="p">|</span>  <span class="p">|</span>  <span class="p">|</span>.----.<span class="p">|</span>  <span class="p">|</span>_
+ <span class="p">|</span>   -   <span class="o">||</span>  _  <span class="p">|</span>  -__<span class="p">|</span>     <span class="o">||</span>  <span class="p">|</span>  <span class="p">|</span>  <span class="o">||</span>   _<span class="o">||</span>   _<span class="p">|</span>
+ <span class="p">|</span>_______<span class="o">||</span>   __<span class="p">|</span>_____<span class="p">|</span>__<span class="p">|</span>__<span class="o">||</span>________<span class="o">||</span>__<span class="p">|</span>  <span class="p">|</span>____<span class="p">|</span>
+          <span class="p">|</span>__<span class="p">|</span> W I R E L E S S   F R E E D O M
+ -----------------------------------------------------
+ OpenWrt 19.07.2, r10947-65030d81f3
+ -----------------------------------------------------
+root@OpenWrt:~# <span class="nb">cd</span> /tmp/
+root@OpenWrt:/tmp# sysupgrade -n -F FW_WRT1900AC_1.1.8.164461_prod.img
+Image metadata not found
+Image check failed but --force given - will update anyway!
+Commencing upgrade. Closing all shell sessions.
+Connection to 192.168.1.1 closed by remote host.
+Connection to 192.168.1.1 closed.
+</code></pre></div><h3 id="4-千万不要通过openwrt的web-ui直接刷linksys固件">4. ！！！千万不要通过OpenWRT的Web UI直接刷Linksys固件</h3>
+<p>&hellip;TO BE CONTINUE</p></div>
+                    <div class="post_footer">
+                        
+                        <div class="meta">
+                            <div class="info">
+                                <span class="field tags">
+                                    <i class="ri-stack-line"></i>
+                                    
+                                    <a href="https://blog.aaron-xin.tech/tags/wi-fi/">Wi-Fi</a>
+                                    
+                                    <a href="https://blog.aaron-xin.tech/tags/linksys/">Linksys</a>
+                                    
+                                    <a href="https://blog.aaron-xin.tech/tags/openwrt/">OpenWrt</a>
+                                    
+                                </span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                
+                <div class="doc_comments"></div>
+                
+            </div>
+        </div>
+    </div>
+    <a id="back_to_top" href="#" class="back_to_top"><i class="ri-arrow-up-s-line"></i></a>
+    <footer class="footer">
+    <div class="powered_by">
+        <a href="https://varkai.com">Designed by VarKai,</a>
+        <a href="http://www.gohugo.io/">Proudly published with Hugo</a>
+    </div>
+
+    <div class="footer_slogan">
+        <span>做人有爱，做爱有人</span>
+    </div>
+</footer>
+    <script src="https://blog.aaron-xin.tech/js/jquery-3.5.1.min.js"></script>
+<link href="https://blog.aaron-xin.tech/css/fancybox.min.css" rel="stylesheet">
+<script src="https://blog.aaron-xin.tech/js/fancybox.min.js"></script>
+<script src="https://blog.aaron-xin.tech/js/zozo.js"></script>
+
+
+<script type="text/javascript" async
+    src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\[\[', '\]\]']],
+                processEscapes: true,
+                processEnvironments: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+                TeX: {
+                    equationNumbers: { autoNumber: "AMS" },
+                    extensions: ["AMSmath.js", "AMSsymbols.js"]
+                }
+            }
+        });
+
+        MathJax.Hub.Queue(function () {
+            
+            
+            
+            var all = MathJax.Hub.getAllJax(), i;
+            for (i = 0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+<style>
+    code.has-jax {
+        font: inherit;
+        font-size: 100%;
+        background: inherit;
+        border: inherit;
+        color: #515151;
+    }
+</style>
+
+
+
+</body>
+
+</html>

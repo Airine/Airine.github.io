@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>docusaurus on 一口闰心</title>
+    <link>https://blog.aaron-xin.tech/tags/docusaurus/</link>
+    <description>Recent content in docusaurus on 一口闰心</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 13 Apr 2020 10:15:40 +0800</lastBuildDate><atom:link href="https://blog.aaron-xin.tech/tags/docusaurus/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>如何在10分钟内用Docusaurus部署个人网站&#43;博客</title>
+      <link>https://blog.aaron-xin.tech/posts/home-page/</link>
+      <pubDate>Mon, 13 Apr 2020 10:15:40 +0800</pubDate>
+      
+      <guid>https://blog.aaron-xin.tech/posts/home-page/</guid>
+      <description>&lt;h2 id=&#34;步骤&#34;&gt;步骤&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;注册 - 注册GitHub账号（如果你没有的话）&lt;/li&gt;
+&lt;li&gt;克隆 - Fork 我的仓库&lt;a href=&#34;https://github.com/airine/home-page&#34;&gt;&lt;code&gt;Airine/home-page&lt;/code&gt;&lt;/a&gt;并&lt;code&gt;checkout&lt;/code&gt;到&lt;code&gt;template&lt;/code&gt;分支&lt;/li&gt;
+&lt;li&gt;安装 - &lt;code&gt;yarn&lt;/code&gt;或者&lt;code&gt;npm install&lt;/code&gt;安装所需包&lt;/li&gt;
+&lt;li&gt;预览 - &lt;code&gt;yarn start&lt;/code&gt;在&lt;code&gt;localhost&lt;/code&gt;预览&lt;/li&gt;
+&lt;li&gt;修改 - 修改&lt;code&gt;docusaurus.config.js&lt;/code&gt;以及别的内容&lt;/li&gt;
+&lt;li&gt;部署 - 将你的个人网站免费部署到&lt;a href=&#34;https://blog.aaron-xin.tech/&#34;&gt;&lt;code&gt;&amp;lt;you&amp;gt;.github.io&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

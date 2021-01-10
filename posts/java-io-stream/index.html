@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-CN" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="一口闰心" />
+	
+	
+	
+	<title>Step into Java I/O Stream ｜ 一口闰心</title>
+	
+    
+    
+    <meta name="description" content="In Java, I/O stream can be classified in two ways: 1. by I/O type, 2. by stream type.
+  Classify by IO type
+ Input: InputStream and Reader Output: OutputStream and Writer    Classify by stream type
+ Byte stream: InputStream and OutputStream Char stream: Reader and Writer   " />
+    
+
+    
+    
+    <meta name="keywords" content="一口闰心, 田闰心, Airine" />
+    
+
+	
+    
+    <link rel="shortcut icon" href="https://blog.aaron-xin.tech/images/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="https://blog.aaron-xin.tech/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="https://blog.aaron-xin.tech/css/zozo.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="https://blog.aaron-xin.tech/css/highlight.css" />
+
+    
+    
+</head>
+
+<body>
+    <div class="main animate__animated animate__fadeInDown">
+        <div class="nav_container animated fadeInDown">
+    <div class="site_nav" id="site_nav">
+        <ul>
+            
+            <li>
+                <a href="/">主页</a>
+            </li>
+            
+            <li>
+                <a href="/posts/">归档</a>
+            </li>
+            
+            <li>
+                <a href="/tags/">标签</a>
+            </li>
+            
+            <li>
+                <a href="/about/">关于</a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="menu_icon">
+        <a id="menu_icon"><i class="ri-menu-line"></i></a>
+    </div>
+</div>
+        <div class="header animated fadeInDown">
+    <div class="site_title_container">
+        <div class="site_title">
+            <h1>
+                <a href="https://blog.aaron-xin.tech/">
+                    <span>一口闰心</span>
+                </a>
+            </h1>
+        </div>
+        <div class="description">
+            <p class="sub_title">心怀浪漫宇宙，珍惜人间日常。</p>
+            <div class="my_socials">
+                
+                
+                <a href="https://github.com/Airine" title="github" target="_blank"><i class="ri-github-fill"></i></a>
+                
+                
+                
+                <a href="https://www.instagram.com/airine0119/" title="instagram" target="_blank"><i class="ri-instagram-fill"></i></a>
+                
+                
+                <a href="https://blog.aaron-xin.tech/index.xml" type="application/rss+xml" title="rss" target="_blank"><i
+                        class="ri-rss-fill"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+        <div class="content">
+            <div class="post_page">
+                <div class="post animate__animated animate__fadeInDown">
+                    <div class="post_title post_detail_title">
+                        <h2><a href='/posts/java-io-stream/'>Step into Java I/O Stream</a></h2>
+                        <span class="date">2019.02.22</span>
+                    </div>
+                    <div class="post_content markdown"><p>In Java, I/O stream can be classified in two ways: 1. by I/O type, 2. by stream type.</p>
+<ol>
+<li>
+<p>Classify by IO type</p>
+<ol>
+<li>Input: <code>InputStream</code> and <code>Reader</code></li>
+<li>Output: <code>OutputStream</code> and <code>Writer</code></li>
+</ol>
+</li>
+<li>
+<p>Classify by stream type</p>
+<ol>
+<li>Byte stream: <code>InputStream</code> and <code>OutputStream</code></li>
+<li>Char stream: <code>Reader</code> and <code>Writer</code></li>
+</ol>
+</li>
+</ol>
+<hr>
+<p><code>Input/OuputStream</code> and <code>Reader/Writer</code> are the basic superclass of Java IO streams which are all abstract.</p>
+<p><img src="https://i.loli.net/2019/02/22/5c6fa0e742bdf.png" alt="Java_IO_Stream.png"></p>
+<h2 id="basic-usages">Basic Usages</h2>
+<h3 id="input-inputstream-vs-reader">Input (InputStream vs. Reader)</h3>
+<ol>
+<li>InputStream</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">readByteFromFile</span><span class="o">(</span><span class="n">String</span> <span class="n">fileName</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+    <span class="c1">// Read from file byte by byte.
+</span><span class="c1"></span>
+    <span class="n">File</span> <span class="n">file</span><span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">fileName</span><span class="o">);</span>
+    <span class="kt">byte</span><span class="o">[]</span> <span class="n">byteArray</span><span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[(</span><span class="kt">int</span><span class="o">)</span> <span class="n">file</span><span class="o">.</span><span class="na">length</span><span class="o">()];</span>
+    <span class="n">InputStream</span> <span class="n">is</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
+
+    <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">is</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">byteArray</span><span class="o">);</span>
+
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span>   <span class="s">&#34;File size:\t&#34;</span> <span class="o">+</span> <span class="n">size</span> <span class="o">+</span> <span class="s">&#34; bytes\n&#34;</span> <span class="o">+</span>
+                        <span class="s">&#34;Content:\t&#34;</span> <span class="o">+</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">byteArray</span><span class="o">).</span><span class="na">substring</span><span class="o">(</span><span class="n">0</span><span class="o">,</span> <span class="n">5</span><span class="o">)</span> <span class="o">+</span> <span class="s">&#34;...\n&#34;</span> <span class="o">+</span>
+                        <span class="s">&#34;Raw:\t\t&#34;</span><span class="o">);</span>
+
+    <span class="k">for</span> <span class="o">(</span><span class="kt">byte</span> <span class="n">b</span><span class="o">:</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">copyOfRange</span><span class="o">(</span><span class="n">byteArray</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">5</span><span class="o">))</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">&#34;%X&#34;</span><span class="o">,</span> <span class="n">b</span><span class="o">);</span> <span class="c1">// hex value of a byte
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&#34;,&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&#34;...\n&#34;</span><span class="o">);</span>
+
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Raw-&gt;char:\t&#34;</span> <span class="o">+</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">copyOfRange</span><span class="o">(</span><span class="n">byteArray</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">3</span><span class="o">)));</span>
+    <span class="c1">// Pick up first three bytes and convert them to String.
+</span><span class="c1"></span>    <span class="c1">// PS: A UTF-8 Chinese Character takes three bytes.
+</span><span class="c1"></span>
+    <span class="n">is</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div><ol start="2">
+<li>Reader</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">readCharFromFile</span><span class="o">(</span><span class="n">String</span> <span class="n">fileName</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">{</span>
+    <span class="c1">// Read from file char by char
+</span><span class="c1"></span>
+    <span class="n">File</span> <span class="n">file</span><span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">fileName</span><span class="o">);</span>
+    <span class="n">Reader</span> <span class="n">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileReader</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
+
+    <span class="kt">char</span> <span class="o">[]</span> <span class="n">charArray</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="o">[(</span><span class="kt">int</span><span class="o">)</span> <span class="n">file</span><span class="o">.</span><span class="na">length</span><span class="o">()];</span>
+    <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">charArray</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span>   <span class="s">&#34;File size:\t&#34;</span> <span class="o">+</span> <span class="n">size</span> <span class="o">+</span> <span class="s">&#34; chars\n&#34;</span> <span class="o">+</span>
+                        <span class="s">&#34;Content:\t&#34;</span> <span class="o">+</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">charArray</span><span class="o">).</span><span class="na">substring</span><span class="o">(</span><span class="n">0</span><span class="o">,</span> <span class="n">5</span><span class="o">)</span> <span class="o">+</span> <span class="s">&#34;...\n&#34;</span> <span class="o">+</span>
+                        <span class="s">&#34;Raw content:\t&#34;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">copyOfRange</span><span class="o">(</span><span class="n">charArray</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">5</span><span class="o">));</span>
+
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&#34;...&#34;</span><span class="o">);</span>
+    <span class="n">reader</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;\n&#34;</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>3.main(String args[])</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">fileName</span> <span class="o">=</span> <span class="s">&#34;src/流浪地球_utf8.txt&#34;</span><span class="o">;</span>
+    <span class="kt">long</span> <span class="n">startTime</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+    <span class="k">try</span><span class="o">{</span>
+        <span class="n">readByteFromFile</span><span class="o">(</span><span class="n">fileName</span><span class="o">);</span>
+        <span class="c1">// readCharFromFile(fileName);
+</span><span class="c1"></span>    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">){</span>
+        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="kt">long</span> <span class="n">endTime</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+    <span class="kt">long</span> <span class="n">time</span> <span class="o">=</span> <span class="n">endTime</span> <span class="o">-</span> <span class="n">startTime</span><span class="o">;</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;-----------------------------------------------------------&#34;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Time cost: &#34;</span> <span class="o">+</span> <span class="n">time</span> <span class="o">+</span> <span class="s">&#34;ms&#34;</span><span class="o">);</span>
+    <span class="n">printMemoryInfo</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">printMemoryInfo</span><span class="o">(){</span>
+    <span class="n">MemoryMXBean</span> <span class="n">memoryMXBean</span> <span class="o">=</span> <span class="n">ManagementFactory</span><span class="o">.</span><span class="na">getMemoryMXBean</span><span class="o">();</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;-----------------------------------------------------------&#34;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Memory cost:&#34;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Heap memory used:&#34;</span> <span class="o">+</span> <span class="n">memoryMXBean</span><span class="o">.</span><span class="na">getHeapMemoryUsage</span><span class="o">().</span><span class="na">getUsed</span><span class="o">()/</span><span class="n">1024</span><span class="o">/</span><span class="n">1024</span> <span class="o">+</span> <span class="s">&#34; MB&#34;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Non Heap memory used:&#34;</span> <span class="o">+</span> <span class="n">memoryMXBean</span><span class="o">.</span><span class="na">getNonHeapMemoryUsage</span><span class="o">().</span><span class="na">getUsed</span><span class="o">()/</span><span class="n">1024</span><span class="o">/</span><span class="n">1024</span> <span class="o">+</span> <span class="s">&#34; MB&#34;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;-----------------------------------------------------------&#34;</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>In upper situation, InputStream and Reader use an array with enough size to read file content at once. The performance
+gap between them is not obvious.</p>
+<p>Test file: <a href="https://github.com/Airine/Java-IO-Stream-Testing/blob/master/src/%E6%B5%81%E6%B5%AA%E5%9C%B0%E7%90%83_utf8.txt">file.txt</a></p>
+<h3 id="output-outputstream-vs-writer">Output (OutputStream vs. Writer)</h3>
+<ol>
+<li>
+<p>OutputStream</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">writeByteToFile</span><span class="o">(</span><span class="n">String</span> <span class="n">hello</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">{</span>
+    <span class="kt">byte</span><span class="o">[]</span> <span class="n">byteArray</span> <span class="o">=</span> <span class="n">hello</span><span class="o">.</span><span class="na">getBytes</span><span class="o">();</span>
+    <span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&#34;src/outputStream.txt&#34;</span><span class="o">);</span>
+    <span class="n">OutputStream</span> <span class="n">os</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
+    <span class="n">os</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">byteArray</span><span class="o">);</span>
+    <span class="n">os</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+    <span class="n">os</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>Writer</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="n">FileWriter</span> <span class="nf">writeCharToFile</span><span class="o">(</span><span class="n">String</span> <span class="n">hello</span><span class="o">,</span> <span class="n">Boolean</span> <span class="n">flush</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+    <span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&#34;src/writer.txt&#34;</span><span class="o">);</span>
+    <span class="n">Writer</span> <span class="n">os</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileWriter</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
+    <span class="n">os</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">hello</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">flush</span><span class="o">)</span> <span class="k">return</span> <span class="o">(</span><span class="n">FileWriter</span><span class="o">)</span> <span class="n">os</span><span class="o">;</span> <span class="c1">// dangerous!
+</span><span class="c1"></span>    <span class="n">os</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+    <span class="n">os</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></li>
+</ol>
+<p>3.main(String args[])</p>
+<pre><code>``` java
+public static void main(String args[]){
+    String hello = &quot;hello word!&quot;;
+    //boolean flush = true;
+    boolean flush = false;
+    Writer os = null;
+    try {
+        os = writeCharToFile(hello, flush);
+        writeByteToFile(hello);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    if (!flush &amp;&amp; os!=null) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println(&quot;Enter anything below to flush and close the writer stream.&quot;);
+        scanner.hasNext();
+        try {
+            os.flush();
+            os.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+}
+```
+</code></pre>
+<p>From this example, if we assign <code>false</code> to variable <code>flush</code> and run the program, before enter anything in the console,
+we will find two different files in <code>src</code> . One is &lsquo;outputStream.txt&rsquo; with file content &ldquo;hello word!&rdquo;, the other is
+&lsquo;writer.txt&rsquo; with empty content.</p>
+<p>It is because that the <code>Writer</code> need to convert bytes it read from a file and buffer them char by char into the memory
+in specified codeset to implement the function &lsquo;stream by character&rsquo;. And the <code>Writer</code> would flush the buffer to
+output destination only when the buffer is full or the flush function is invoked.</p>
+<p>The default size of java stream buffer is 8192 bytes.</p>
+<hr>
+<h2 id="advanced">Advanced</h2>
+<h3 id="buffered-stream">Buffered Stream</h3>
+<p>Use wrapper stream to improve the performance.</p>
+<p>To compare the performance between buffered and non-buffered stream, below is a copy file applet.</p>
+<ol>
+<li>
+<p>Buffered byte stream</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">copyFileByByte</span><span class="o">(</span><span class="n">String</span> <span class="n">fileName</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">buffered</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+    <span class="c1">// Copy file byte by byte using byte IO stream.
+</span><span class="c1"></span>    <span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">fileName</span><span class="o">);</span>
+    <span class="n">File</span> <span class="n">destFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&#34;src/copyByte.txt&#34;</span><span class="o">);</span>
+    <span class="n">InputStream</span> <span class="n">is</span><span class="o">;</span>
+    <span class="n">OutputStream</span> <span class="n">os</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">buffered</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">is</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
+        <span class="n">os</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="n">destFile</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="n">is</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">file</span><span class="o">));</span>
+        <span class="n">os</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="n">destFile</span><span class="o">));</span>
+    <span class="o">}</span>
+    <span class="kt">int</span> <span class="n">c</span><span class="o">;</span>
+    <span class="k">while</span><span class="o">((</span><span class="n">c</span> <span class="o">=</span> <span class="n">is</span><span class="o">.</span><span class="na">read</span><span class="o">())</span> <span class="o">!=</span> <span class="o">-</span><span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">os</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">c</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="n">is</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="n">os</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>Buffered char stream</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">copyFileByChar</span><span class="o">(</span><span class="n">String</span> <span class="n">fileName</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">buffered</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+    <span class="c1">// Copy file char by char using char IO stream.
+</span><span class="c1"></span>    <span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">fileName</span><span class="o">);</span>
+    <span class="n">File</span> <span class="n">destFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&#34;src/copyChar.txt&#34;</span><span class="o">);</span>
+    <span class="n">Reader</span> <span class="n">is</span><span class="o">;</span>
+    <span class="n">Writer</span> <span class="n">os</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">buffered</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">is</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileReader</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
+        <span class="n">os</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileWriter</span><span class="o">(</span><span class="n">destFile</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="n">is</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">FileReader</span><span class="o">(</span><span class="n">file</span><span class="o">));</span>
+        <span class="n">os</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedWriter</span><span class="o">(</span><span class="k">new</span> <span class="n">FileWriter</span><span class="o">(</span><span class="n">destFile</span><span class="o">));</span>
+    <span class="o">}</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">buffered</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">c</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">((</span><span class="n">c</span> <span class="o">=</span> <span class="n">is</span><span class="o">.</span><span class="na">read</span><span class="o">())</span> <span class="o">!=</span> <span class="o">-</span><span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">os</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">c</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">s</span><span class="o">;</span>
+        <span class="n">BufferedReader</span> <span class="n">bufferedReader</span> <span class="o">=</span> <span class="o">(</span><span class="n">BufferedReader</span><span class="o">)</span> <span class="n">is</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">((</span><span class="n">s</span> <span class="o">=</span> <span class="n">bufferedReader</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+            <span class="n">os</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="n">is</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="n">os</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>main(String args[])</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">fileName</span> <span class="o">=</span> <span class="s">&#34;src/流浪地球_utf8.txt&#34;</span><span class="o">;</span>
+    <span class="kt">boolean</span> <span class="n">buffered</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="c1">// boolean buffered = true;
+</span><span class="c1"></span>    <span class="kt">long</span> <span class="n">startTime</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+    <span class="k">try</span><span class="o">{</span>
+        <span class="n">copyFileByByte</span><span class="o">(</span><span class="n">fileName</span><span class="o">,</span> <span class="n">buffered</span><span class="o">);</span>
+        <span class="c1">// copyFileByChar(fileName, buffered);
+</span><span class="c1"></span>    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">){</span>
+        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="kt">long</span> <span class="n">endTime</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+    <span class="kt">long</span> <span class="n">time</span> <span class="o">=</span> <span class="n">endTime</span> <span class="o">-</span> <span class="n">startTime</span><span class="o">;</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;-----------------------------------------------------------&#34;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Time cost: &#34;</span> <span class="o">+</span> <span class="n">time</span> <span class="o">+</span> <span class="s">&#34;ms&#34;</span><span class="o">);</span>
+    <span class="n">printMemoryInfo</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">printMemoryInfo</span><span class="o">(){</span>
+    <span class="n">MemoryMXBean</span> <span class="n">memoryMXBean</span> <span class="o">=</span> <span class="n">ManagementFactory</span><span class="o">.</span><span class="na">getMemoryMXBean</span><span class="o">();</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;-----------------------------------------------------------&#34;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Memory cost:&#34;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Heap memory used:&#34;</span> <span class="o">+</span> <span class="n">memoryMXBean</span><span class="o">.</span><span class="na">getHeapMemoryUsage</span><span class="o">().</span><span class="na">getUsed</span><span class="o">()/</span><span class="n">1024</span><span class="o">/</span><span class="n">1024</span> <span class="o">+</span> <span class="s">&#34; MB&#34;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Non Heap memory used:&#34;</span> <span class="o">+</span> <span class="n">memoryMXBean</span><span class="o">.</span><span class="na">getNonHeapMemoryUsage</span><span class="o">().</span><span class="na">getUsed</span><span class="o">()/</span><span class="n">1024</span><span class="o">/</span><span class="n">1024</span> <span class="o">+</span> <span class="s">&#34; MB&#34;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;-----------------------------------------------------------&#34;</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></li>
+</ol>
+<p>Output:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Non-buffered:
+1 byte stream
+    -----------------------------------------------------------
+    Time cost: 4124ms
+    -----------------------------------------------------------
+    Memory cost:
+    Heap memory used:5 MB
+    Non Heap memory used:4 MB
+    -----------------------------------------------------------
+2 char stream
+    -----------------------------------------------------------
+    Time cost: 88ms
+    -----------------------------------------------------------
+    Memory cost:
+    Heap memory used:30 MB
+    Non Heap memory used:5 MB
+    -----------------------------------------------------------
+
+Buffered:
+1 byte stream
+    -----------------------------------------------------------
+    Time cost: 28ms
+    -----------------------------------------------------------
+    Memory cost:
+    Heap memory used:5 MB
+    Non Heap memory used:4 MB
+    -----------------------------------------------------------
+2 char stream
+    -----------------------------------------------------------
+    Time cost: 31ms
+    -----------------------------------------------------------
+    Memory cost:
+    Heap memory used:5 MB
+    Non Heap memory used:4 MB
+    -----------------------------------------------------------
+</code></pre></div><h3 id="stream-convert">Stream convert</h3>
+<p>Additionally, the <code>InputStream</code> and <code>OutStream</code> can be converted to <code>Reader</code> and <code>Writer</code> by codes below.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="c1">// Input
+</span><span class="c1"></span> <span class="n">InputStream</span> <span class="n">is</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
+ <span class="n">Reader</span> <span class="n">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span><span class="n">is</span><span class="o">);</span>
+
+ <span class="c1">//Output
+</span><span class="c1"></span> <span class="n">OutputStream</span> <span class="n">os</span> <span class="o">=</span> <span class="k">new</span> <span class="n">OutputStream</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
+ <span class="n">Writer</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">OutputStreamWriter</span><span class="o">(</span><span class="n">os</span><span class="o">);</span>
+</code></pre></div><p>Demo</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>
+
+ <span class="kd">public</span> <span class="kd">class</span> <span class="nc">StreamConvertDemo</span> <span class="o">{</span>
+
+ 	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+ 		<span class="n">String</span> <span class="n">fileName</span> <span class="o">=</span> <span class="s">&#34;src/流浪地球_utf8.txt&#34;</span><span class="o">;</span>
+
+ 		<span class="k">try</span><span class="o">{</span>
+ 			<span class="n">copyFileByChar</span><span class="o">(</span><span class="n">fileName</span><span class="o">);</span>
+ 		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">){</span>
+ 			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+ 		<span class="o">}</span>
+
+ 	<span class="o">}</span>
+
+ 	<span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">copyFileByChar</span><span class="o">(</span><span class="n">String</span> <span class="n">fileName</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+ 		<span class="c1">// Copy file char by char using char IO stream.
+</span><span class="c1"></span> 		<span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">fileName</span><span class="o">);</span>
+ 		<span class="n">File</span> <span class="n">destFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&#34;src/copyChar.txt&#34;</span><span class="o">);</span>
+
+ 		<span class="n">InputStream</span> <span class="n">inputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
+ 		<span class="n">OutputStream</span> <span class="n">outputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="n">destFile</span><span class="o">);</span>
+ 		<span class="n">Reader</span> <span class="n">is</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span><span class="n">inputStream</span><span class="o">);</span>
+ 		<span class="n">Writer</span> <span class="n">os</span> <span class="o">=</span> <span class="k">new</span> <span class="n">OutputStreamWriter</span><span class="o">(</span><span class="n">outputStream</span><span class="o">);</span>
+
+ 		<span class="kt">int</span> <span class="n">c</span><span class="o">;</span>
+ 		<span class="k">while</span> <span class="o">((</span><span class="n">c</span> <span class="o">=</span> <span class="n">is</span><span class="o">.</span><span class="na">read</span><span class="o">())</span> <span class="o">!=</span> <span class="o">-</span><span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+ 			<span class="n">os</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">c</span><span class="o">);</span>
+ 		<span class="o">}</span>
+
+ 		<span class="n">is</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+ 		<span class="n">os</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+ 	<span class="o">}</span>
+ <span class="o">}</span>
+</code></pre></div><p>Question: Can <code>Reader</code> and <code>Writer</code> be converted to <code>InputStream</code> and <code>OutputStream</code> ?</p>
+<p>Answer: No.</p>
+<p>Why? Let&rsquo;s analyze the source code definition of these four classes.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="c1">// Input
+</span><span class="c1"></span> <span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">InputStream</span> <span class="kd">implements</span> <span class="n">Closeable</span> <span class="o">{}</span>
+ <span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Reader</span> <span class="kd">implements</span> <span class="n">Readable</span><span class="o">,</span> <span class="n">Closeable</span> <span class="o">{}</span>
+ <span class="c1">// Output
+</span><span class="c1"></span> <span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">OutputStream</span> <span class="kd">implements</span> <span class="n">Closeable</span><span class="o">,</span> <span class="n">Flushable</span> <span class="o">{}</span>
+ <span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Writer</span> <span class="kd">implements</span> <span class="n">Appendable</span><span class="o">,</span> <span class="n">Closeable</span><span class="o">,</span> <span class="n">Flushable</span> <span class="o">{}</span>
+</code></pre></div><p>As can be seen from the upper code, to be converted to <code>Reader</code> or <code>Writer</code> , the <code>InputStream</code> and <code>OutputStream</code>
+implement a more interface <code>Readable</code> or <code>Appendable</code> . This process is an addition. But for <code>Reader</code> and <code>Writer</code> to
+become <code>Input/OutputStream</code> , it needs interface subtraction which is impossible.</p>
+<p>Source code: <a href="https://github.com/Airine/Java-IO-Stream-Testing">https://github.com/Airine/Java-IO-Stream-Testing</a></p>
+<hr>
+<h2 id="reference">Reference</h2>
+<p>1.https://blog.csdn.net/wangzhongshun/article/details/78595228</p></div>
+                    <div class="post_footer">
+                        
+                        <div class="meta">
+                            <div class="info">
+                                <span class="field tags">
+                                    <i class="ri-stack-line"></i>
+                                    
+                                    <a href="https://blog.aaron-xin.tech/tags/java/">Java</a>
+                                    
+                                    <a href="https://blog.aaron-xin.tech/tags/i/o/">I/O</a>
+                                    
+                                </span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                
+                <div class="doc_comments"></div>
+                
+            </div>
+        </div>
+    </div>
+    <a id="back_to_top" href="#" class="back_to_top"><i class="ri-arrow-up-s-line"></i></a>
+    <footer class="footer">
+    <div class="powered_by">
+        <a href="https://varkai.com">Designed by VarKai,</a>
+        <a href="http://www.gohugo.io/">Proudly published with Hugo</a>
+    </div>
+
+    <div class="footer_slogan">
+        <span>做人有爱，做爱有人</span>
+    </div>
+</footer>
+    <script src="https://blog.aaron-xin.tech/js/jquery-3.5.1.min.js"></script>
+<link href="https://blog.aaron-xin.tech/css/fancybox.min.css" rel="stylesheet">
+<script src="https://blog.aaron-xin.tech/js/fancybox.min.js"></script>
+<script src="https://blog.aaron-xin.tech/js/zozo.js"></script>
+
+
+<script type="text/javascript" async
+    src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\[\[', '\]\]']],
+                processEscapes: true,
+                processEnvironments: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+                TeX: {
+                    equationNumbers: { autoNumber: "AMS" },
+                    extensions: ["AMSmath.js", "AMSsymbols.js"]
+                }
+            }
+        });
+
+        MathJax.Hub.Queue(function () {
+            
+            
+            
+            var all = MathJax.Hub.getAllJax(), i;
+            for (i = 0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+<style>
+    code.has-jax {
+        font: inherit;
+        font-size: 100%;
+        background: inherit;
+        border: inherit;
+        color: #515151;
+    }
+</style>
+
+
+
+</body>
+
+</html>

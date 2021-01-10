@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>一口闰心</title>
+    <link>https://blog.aaron-xin.tech/</link>
+    <description>Recent content on 一口闰心</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 01 May 2020 01:00:53 +0800</lastBuildDate><atom:link href="https://blog.aaron-xin.tech/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MacOS搭建Flutter开发环境 &#43; Android Studio &#43; Xcode</title>
+      <link>https://blog.aaron-xin.tech/posts/flutter-environment/</link>
+      <pubDate>Fri, 01 May 2020 01:00:53 +0800</pubDate>
+      
+      <guid>https://blog.aaron-xin.tech/posts/flutter-environment/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;注：这篇文章基本上搬运了&lt;a href=&#34;https://flutterchina.club/setup-macos/&#34;&gt;官方文档&lt;/a&gt;，并根据搭建过程进行一些增减。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;系统要求&#34;&gt;系统要求:&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;操作系统: macOS (64-bit)&lt;/li&gt;
+&lt;li&gt;磁盘空间: 700 MB (不包括Xcode或Android Studio的磁盘空间）.&lt;/li&gt;
+&lt;li&gt;工具: Flutter 依赖下面这些命令行工具:
+&lt;code&gt;bash&lt;/code&gt;, &lt;code&gt;mkdir&lt;/code&gt;, &lt;code&gt;rm&lt;/code&gt;, &lt;code&gt;git&lt;/code&gt;, &lt;code&gt;curl&lt;/code&gt;, &lt;code&gt;unzip&lt;/code&gt;, &lt;code&gt;which&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>如何在10分钟内用Docusaurus部署个人网站&#43;博客</title>
+      <link>https://blog.aaron-xin.tech/posts/home-page/</link>
+      <pubDate>Mon, 13 Apr 2020 10:15:40 +0800</pubDate>
+      
+      <guid>https://blog.aaron-xin.tech/posts/home-page/</guid>
+      <description>&lt;h2 id=&#34;步骤&#34;&gt;步骤&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;注册 - 注册GitHub账号（如果你没有的话）&lt;/li&gt;
+&lt;li&gt;克隆 - Fork 我的仓库&lt;a href=&#34;https://github.com/airine/home-page&#34;&gt;&lt;code&gt;Airine/home-page&lt;/code&gt;&lt;/a&gt;并&lt;code&gt;checkout&lt;/code&gt;到&lt;code&gt;template&lt;/code&gt;分支&lt;/li&gt;
+&lt;li&gt;安装 - &lt;code&gt;yarn&lt;/code&gt;或者&lt;code&gt;npm install&lt;/code&gt;安装所需包&lt;/li&gt;
+&lt;li&gt;预览 - &lt;code&gt;yarn start&lt;/code&gt;在&lt;code&gt;localhost&lt;/code&gt;预览&lt;/li&gt;
+&lt;li&gt;修改 - 修改&lt;code&gt;docusaurus.config.js&lt;/code&gt;以及别的内容&lt;/li&gt;
+&lt;li&gt;部署 - 将你的个人网站免费部署到&lt;a href=&#34;https://blog.aaron-xin.tech/&#34;&gt;&lt;code&gt;&amp;lt;you&amp;gt;.github.io&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    
+    <item>
+      <title>Linksys WRT1900ACS 在刷OpenWrt和Linksys原固件时遇到的问题与解决方案</title>
+      <link>https://blog.aaron-xin.tech/posts/linksys-openwrt/</link>
+      <pubDate>Mon, 06 Apr 2020 00:22:58 +0800</pubDate>
+      
+      <guid>https://blog.aaron-xin.tech/posts/linksys-openwrt/</guid>
+      <description>&lt;p&gt;主要记录了如何从OpenWRT刷回原厂固件，以及如何解决过程中遇到的各种问题。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>如何让谷歌搜索到个人网站</title>
+      <link>https://blog.aaron-xin.tech/posts/google-search/</link>
+      <pubDate>Tue, 31 Mar 2020 23:53:15 +0800</pubDate>
+      
+      <guid>https://blog.aaron-xin.tech/posts/google-search/</guid>
+      <description>&lt;p&gt;在有了个人网站以后，总希望更多的人来踩一踩看一看。也希望自己写的博客能够真的分享被别人搜索到，达到博客应有的分享功能。但是了解以后才发现：&lt;strong&gt;网站能够被搜索引擎搜索到需要自己的网站被搜索引擎收录&lt;/strong&gt;。一般来说，能被搜索引擎所收录有三种途径：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;交钱：一次点击 &lt;em&gt;$0.05 USD&lt;/em&gt;， 适用于商业推广，并会现实在右栏（广告栏）。&lt;/li&gt;
+&lt;li&gt;网站本身知名度高，影响力高：Google 对搜索结果的排名目前使用&lt;code&gt;page rank&lt;/code&gt;算法，简单来说越多影响力大的知名网站能够导向你的网站，你的网站的得分就越高，就会排在前面。如果你的网站的影响力已经很大，搜索引擎会主动去添加索引。&lt;/li&gt;
+&lt;li&gt;申请：自己主动向搜索引擎添加自己的链接，请求搜索引擎使用爬虫检索你的网站。&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    
+    <item>
+      <title>Signal in Process</title>
+      <link>https://blog.aaron-xin.tech/posts/signal-in-process/</link>
+      <pubDate>Sat, 14 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.aaron-xin.tech/posts/signal-in-process/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Signals&lt;/strong&gt; in Linux, also called &lt;strong&gt;software interrupts&lt;/strong&gt;, is a part of process control. Moreover, the signal method is one of the &lt;strong&gt;IPC&lt;/strong&gt;(Inter-Process Communication) method, which is used to notify a process that an asynchronous event has occurred.&lt;strong&gt;Note&lt;/strong&gt; that the function is only to notify what events have occurred but &lt;strong&gt;does not pass any data.&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Step into Java I/O Stream</title>
+      <link>https://blog.aaron-xin.tech/posts/java-io-stream/</link>
+      <pubDate>Fri, 22 Feb 2019 18:37:40 +0800</pubDate>
+      
+      <guid>https://blog.aaron-xin.tech/posts/java-io-stream/</guid>
+      <description>&lt;p&gt;In Java, I/O stream can be classified in two ways: 1. by I/O type, 2. by stream type.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Classify by IO type&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Input: &lt;code&gt;InputStream&lt;/code&gt; and &lt;code&gt;Reader&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Output: &lt;code&gt;OutputStream&lt;/code&gt; and &lt;code&gt;Writer&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Classify by stream type&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Byte stream: &lt;code&gt;InputStream&lt;/code&gt; and &lt;code&gt;OutputStream&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Char stream: &lt;code&gt;Reader&lt;/code&gt; and &lt;code&gt;Writer&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

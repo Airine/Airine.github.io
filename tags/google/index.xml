@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Google on 一口闰心</title>
+    <link>https://blog.aaron-xin.tech/tags/google/</link>
+    <description>Recent content in Google on 一口闰心</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 31 Mar 2020 23:53:15 +0800</lastBuildDate><atom:link href="https://blog.aaron-xin.tech/tags/google/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>如何让谷歌搜索到个人网站</title>
+      <link>https://blog.aaron-xin.tech/posts/google-search/</link>
+      <pubDate>Tue, 31 Mar 2020 23:53:15 +0800</pubDate>
+      
+      <guid>https://blog.aaron-xin.tech/posts/google-search/</guid>
+      <description>&lt;p&gt;在有了个人网站以后，总希望更多的人来踩一踩看一看。也希望自己写的博客能够真的分享被别人搜索到，达到博客应有的分享功能。但是了解以后才发现：&lt;strong&gt;网站能够被搜索引擎搜索到需要自己的网站被搜索引擎收录&lt;/strong&gt;。一般来说，能被搜索引擎所收录有三种途径：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;交钱：一次点击 &lt;em&gt;$0.05 USD&lt;/em&gt;， 适用于商业推广，并会现实在右栏（广告栏）。&lt;/li&gt;
+&lt;li&gt;网站本身知名度高，影响力高：Google 对搜索结果的排名目前使用&lt;code&gt;page rank&lt;/code&gt;算法，简单来说越多影响力大的知名网站能够导向你的网站，你的网站的得分就越高，就会排在前面。如果你的网站的影响力已经很大，搜索引擎会主动去添加索引。&lt;/li&gt;
+&lt;li&gt;申请：自己主动向搜索引擎添加自己的链接，请求搜索引擎使用爬虫检索你的网站。&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

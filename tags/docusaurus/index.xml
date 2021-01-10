@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>docusaurus on 一口闰心</title>
-    <link>https://blog.aaron-xin.tech/tags/docusaurus/</link>
+    <link>//airine.github.io/tags/docusaurus/</link>
     <description>Recent content in docusaurus on 一口闰心</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 13 Apr 2020 10:15:40 +0800</lastBuildDate><atom:link href="https://blog.aaron-xin.tech/tags/docusaurus/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 13 Apr 2020 10:15:40 +0800</lastBuildDate><atom:link href="//airine.github.io/tags/docusaurus/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>如何在10分钟内用Docusaurus部署个人网站&#43;博客</title>
-      <link>https://blog.aaron-xin.tech/posts/home-page/</link>
+      <link>//airine.github.io/posts/home-page/</link>
       <pubDate>Mon, 13 Apr 2020 10:15:40 +0800</pubDate>
       
-      <guid>https://blog.aaron-xin.tech/posts/home-page/</guid>
+      <guid>//airine.github.io/posts/home-page/</guid>
       <description>&lt;h2 id=&#34;步骤&#34;&gt;步骤&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;注册 - 注册GitHub账号（如果你没有的话）&lt;/li&gt;

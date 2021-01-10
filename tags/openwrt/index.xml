@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>OpenWrt on 一口闰心</title>
-    <link>https://blog.aaron-xin.tech/tags/openwrt/</link>
+    <link>//airine.github.io/tags/openwrt/</link>
     <description>Recent content in OpenWrt on 一口闰心</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 06 Apr 2020 00:22:58 +0800</lastBuildDate><atom:link href="https://blog.aaron-xin.tech/tags/openwrt/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 06 Apr 2020 00:22:58 +0800</lastBuildDate><atom:link href="//airine.github.io/tags/openwrt/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Linksys WRT1900ACS 在刷OpenWrt和Linksys原固件时遇到的问题与解决方案</title>
-      <link>https://blog.aaron-xin.tech/posts/linksys-openwrt/</link>
+      <link>//airine.github.io/posts/linksys-openwrt/</link>
       <pubDate>Mon, 06 Apr 2020 00:22:58 +0800</pubDate>
       
-      <guid>https://blog.aaron-xin.tech/posts/linksys-openwrt/</guid>
+      <guid>//airine.github.io/posts/linksys-openwrt/</guid>
       <description>&lt;p&gt;主要记录了如何从OpenWRT刷回原厂固件，以及如何解决过程中遇到的各种问题。&lt;/p&gt;</description>
     </item>
     

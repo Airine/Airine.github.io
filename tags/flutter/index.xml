@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>flutter on 一口闰心</title>
-    <link>https://airine.github.io/tags/flutter/</link>
+    <link>https://blog.aaron-xin.tech/tags/flutter/</link>
     <description>Recent content in flutter on 一口闰心</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 01 May 2020 01:00:53 +0800</lastBuildDate><atom:link href="https://airine.github.io/tags/flutter/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 01 May 2020 01:00:53 +0800</lastBuildDate><atom:link href="https://blog.aaron-xin.tech/tags/flutter/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>MacOS搭建Flutter开发环境 &#43; Android Studio &#43; Xcode</title>
-      <link>https://airine.github.io/posts/flutter-environment/</link>
+      <link>https://blog.aaron-xin.tech/posts/flutter-environment/</link>
       <pubDate>Fri, 01 May 2020 01:00:53 +0800</pubDate>
       
-      <guid>https://airine.github.io/posts/flutter-environment/</guid>
+      <guid>https://blog.aaron-xin.tech/posts/flutter-environment/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;注：这篇文章基本上搬运了&lt;a href=&#34;https://flutterchina.club/setup-macos/&#34;&gt;官方文档&lt;/a&gt;，并根据搭建过程进行一些增减。&lt;/p&gt;
 &lt;/blockquote&gt;

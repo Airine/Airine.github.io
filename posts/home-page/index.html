@@ -195,7 +195,31 @@ if (!doNotTrack) {
                 </div>
                 
                 
-                <div class="doc_comments"></div>
+                
+<div class="doc_comments">
+	<div id="gitalk-container"></div>
+</div>
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script>
+    const gitalk = new Gitalk({
+      clientID: '5a14503d87feacefcfaf',
+      clientSecret: 'efb7551dee0e32cd12cb778b4ae8ab9c0150eb8c',
+      repo: 'Airine.github.io',
+      owner: 'Airine',
+      admin: ['Airine'],
+      id: location.pathname, 
+      distractionFreeMode: false 
+    });
+    (function() {
+      if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+        document.getElementById('gitalk-container').innerHTML = 'Gitalk comments not available by default when the website is previewed locally.';
+        return;
+      }
+      gitalk.render('gitalk-container');
+    })();
+  </script>
                 
             </div>
         </div>
@@ -216,43 +240,6 @@ if (!doNotTrack) {
 <script src="https://www.aaron-xin.tech/js/fancybox.min.js"></script>
 <script src="https://www.aaron-xin.tech/js/zozo.js"></script>
 
-
-<script type="text/javascript" async
-    src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-        MathJax.Hub.Config({
-            tex2jax: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\[\[', '\]\]']],
-                processEscapes: true,
-                processEnvironments: true,
-                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-                TeX: {
-                    equationNumbers: { autoNumber: "AMS" },
-                    extensions: ["AMSmath.js", "AMSsymbols.js"]
-                }
-            }
-        });
-
-        MathJax.Hub.Queue(function () {
-            
-            
-            
-            var all = MathJax.Hub.getAllJax(), i;
-            for (i = 0; i < all.length; i += 1) {
-                all[i].SourceElement().parentNode.className += ' has-jax';
-            }
-        });
-    </script>
-
-<style>
-    code.has-jax {
-        font: inherit;
-        font-size: 100%;
-        background: inherit;
-        border: inherit;
-        color: #515151;
-    }
-</style>
 
 
 

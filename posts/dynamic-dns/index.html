@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-162317692-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="一口闰心" />
+	
+	
+	
+	<title>检测外网IP变化，动态更新阿里云域名解析 ｜ 一口闰心</title>
+	
+    
+    
+    <meta name="description" content="置办宽带后，运营商一般会给猫（路由器）的WAN网口分配一个外网IP。再通过端口映射（port forwarding）功能，就能远程ssh访问家里的设备（PC/树莓派）或者将其作为服务器使用。为了方便，我将我的域名@.aaron-xin.tech解析到了该外网IP。使用一堆时间后，突然有一天，突然所有服务都无法访问了，但是IP还是能够ping通。排查后发现，外网IP也是通过DHCP的方式获取的，意味着每次lease更新的时候，有比较大的概率IP会发生变化。所以，我通过家中的树莓派实时（每小时）监控外网IP的变化，并根据新的外网IP调用阿里云API更新域名解析。
+" />
+    
+
+    
+    
+    <meta name="keywords" content="一口闰心, 田闰心, Airine" />
+    
+
+	
+    
+    <link rel="shortcut icon" href="https://www.aaron-xin.tech/images/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="https://www.aaron-xin.techcss/normalize.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="https://www.aaron-xin.tech/css/zozo.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="https://www.aaron-xin.tech/css/highlight.css" />
+
+    
+    
+
+    
+    <script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/c9abd2b4.js","daovoice")</script>
+</head>
+
+<body>
+    <div class="main animate__animated animate__fadeInDown">
+        <div class="nav_container animated fadeInDown">
+    <div class="site_nav" id="site_nav">
+        <ul>
+            
+            <li>
+                <a href="/">主页</a>
+            </li>
+            
+            <li>
+                <a href="/posts/">归档</a>
+            </li>
+            
+            <li>
+                <a href="/tags/">标签</a>
+            </li>
+            
+            <li>
+                <a href="/about/">关于</a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="menu_icon">
+        <a id="menu_icon"><i class="ri-menu-line"></i></a>
+    </div>
+</div>
+        <div class="header animated fadeInDown">
+    <div class="site_title_container">
+        <div class="site_title">
+            <h1>
+                <a href="https://www.aaron-xin.tech">
+                    <span>一口闰心</span>
+                </a>
+            </h1>
+        </div>
+        <div class="description">
+            <p class="sub_title">心怀浪漫宇宙，珍惜人间日常。</p>
+            <div class="my_socials">
+                
+                
+                <a href="https://github.com/Airine" title="github" target="_blank"><i class="ri-github-fill"></i></a>
+                
+                
+                
+                <a href="https://www.instagram.com/airine0119/" title="instagram" target="_blank"><i class="ri-instagram-fill"></i></a>
+                
+                
+                <a href="https://www.aaron-xin.tech/index.xml" type="application/rss+xml" title="rss" target="_blank"><i
+                        class="ri-rss-fill"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+        <div class="content">
+            <div class="post_page">
+                <div class="post animate__animated animate__fadeInDown">
+                    <div class="post_title post_detail_title">
+                        <h2><a href='/posts/dynamic-dns/'>检测外网IP变化，动态更新阿里云域名解析</a></h2>
+                        <span class="date">2021.01.13</span>
+                    </div>
+                    <div class="post_content markdown"><p>置办宽带后，运营商一般会给猫（路由器）的WAN网口分配一个外网IP。再通过端口映射（port forwarding）功能，就能远程ssh访问家里的设备（PC/树莓派）或者将其作为服务器使用。为了方便，我将我的域名<code>@.aaron-xin.tech</code>解析到了该外网IP。使用一堆时间后，突然有一天，突然所有服务都无法访问了，但是IP还是能够ping通。排查后发现，外网IP也是通过DHCP的方式获取的，意味着每次lease更新的时候，有比较大的概率IP会发生变化。所以，我通过家中的树莓派实时（每小时）监控外网IP的变化，并根据新的外网IP调用阿里云API更新域名解析。</p>
+<h2 id="目录">目录</h2>
+<ol>
+<li><a href="#%E8%8E%B7%E5%8F%96%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%E5%9C%B0%E5%9D%80">获取域名解析IP</a></li>
+<li><a href="#%E8%8E%B7%E5%8F%96%E5%AE%9E%E6%97%B6%E5%A4%96%E7%BD%91%E5%9C%B0%E5%9D%80">获取实时外网IP</a></li>
+<li><a href="#%E6%9B%B4%E6%96%B0%E9%98%BF%E9%87%8C%E4%BA%91%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90">更新阿里云域名解析</a></li>
+<li><a href="#%E5%BC%80%E6%9C%BA%E8%87%AA%E5%8A%A8%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC">开机自动运行脚本</a></li>
+</ol>
+<p><em>👇可以看出，WAN口IP地址需要通过DHCP获取，并且lease time为一天</em></p>
+<p><img src="https://img-upic.oss-accelerate.aliyuncs.com/uPic/ZkO7XN.png" alt="image-20210114110321075"></p>
+<h2 id="获取域名解析地址">获取域名解析地址</h2>
+<p>第一步，获取域名解析到的IP地址（旧地址）。首先想到用最常见的<code>ping</code>命令，再从<code>ping</code>的输出中解析出想要的IP地址。</p>
+<p><img src="https://img-upic.oss-accelerate.aliyuncs.com/uPic/KA2yiN.png" alt="image-20210114150956913" style="zoom:80%;" /></p>
+<p>但是这种办法有一点风险，如果旧的IP地址没有被DHCP分配给别人，就会出现<code>ping</code>不通的情况。所以最自然最保险的办法应该是去做DNS Lookup，对应的Linux Command就是<code>dig &lt;domain name&gt;</code>:</p>
+<p><img src="https://img-upic.oss-accelerate.aliyuncs.com/uPic/R7bfaH.png" alt="image-20210114151755817" style="zoom:80%;" /></p>
+<p>可以通过左边的方式，直接从最近的DNS server，也就是<code>192.168.0.1#53</code>查询。也可以指定<code>8.8.8.8#53</code>(Google的DNS server)。</p>
+<p>对应的<code>Golang</code>代码为：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">getResolver</span><span class="p">()</span> <span class="o">*</span><span class="nx">net</span><span class="p">.</span><span class="nx">Resolver</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">net</span><span class="p">.</span><span class="nx">Resolver</span><span class="p">{</span>
+		<span class="nx">PreferGo</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+		<span class="nx">Dial</span><span class="p">:</span> <span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">network</span><span class="p">,</span> <span class="nx">address</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">net</span><span class="p">.</span><span class="nx">Conn</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+			<span class="nx">d</span> <span class="o">:=</span> <span class="nx">net</span><span class="p">.</span><span class="nx">Dialer</span><span class="p">{</span>
+				<span class="nx">Timeout</span><span class="p">:</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Duration</span><span class="p">(</span><span class="mi">10000</span><span class="p">),</span>
+			<span class="p">}</span>
+			<span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nf">DialContext</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="s">&#34;udp&#34;</span><span class="p">,</span> <span class="s">&#34;8.8.8.8:53&#34;</span><span class="p">)</span>
+		<span class="p">},</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// DNS lookup
+</span><span class="c1"></span><span class="nx">ips</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">resolver</span><span class="p">.</span><span class="nf">LookupHost</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nf">Background</span><span class="p">(),</span> <span class="s">&#34;aaron-xin.tech&#34;</span><span class="p">)</span>
+<span class="nx">dnsIP</span> <span class="p">=</span> <span class="nx">ips</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div><h2 id="获取实时外网地址">获取实时外网地址</h2>
+<p>第二步，实时获取外网IP地址。子网中每一个设备都通过同一外网IP与外网链接。因为每次HTTP/HTTPs的GET都会包含该请求的外网IP地址，网上有很多网站利用此功能提供”IP Lookup“的功能。如我使用的<a href="https://ifconfig.me"><code>ifconfig.me</code></a>:</p>
+<p><img src="https://img-upic.oss-accelerate.aliyuncs.com/uPic/JmVjjh.png" alt="image-20210114153813708" style="zoom:80%;" /></p>
+<p>对应的<code>Golang</code>代码为：</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">realIP</span> <span class="kt">string</span>
+<span class="c1">// Get real IP
+</span><span class="c1"></span><span class="nx">resp</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">Get</span><span class="p">(</span><span class="s">&#34;http://ifconfig.me&#34;</span><span class="p">)</span> <span class="c1">// the ip discover service, choose a nearby one
+</span><span class="c1"></span><span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+	<span class="k">defer</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+    <span class="nx">body</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadAll</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
+    <span class="nx">realIP</span> <span class="p">=</span> <span class="nb">string</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+	<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Fail to get ip from ifconfig.me&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="更新阿里云域名解析">更新阿里云域名解析</h2>
+<p>第三步，更新阿里云域名解析。这个需要通过调用阿里云的<a href="https://help.aliyun.com/document_detail/124923.html">域名解析API</a>完成。</p>
+<p>阿里云云解析DNS调用TOP5的接口：</p>
+<ol>
+<li>通过 <a href="https://help.aliyun.com/document_detail/29772.html?spm=a2c4g.11186623.2.23.118327a7POR9m1">AddDomainRecord</a> 根据传入参数添加解析记录。</li>
+<li>通过 <a href="https://help.aliyun.com/document_detail/29774.html?spm=a2c4g.11186623.2.24.118327a7POR9m1">UpdateDomainRecord</a> 根据传入参数修改解析记录。</li>
+<li>通过 <a href="https://help.aliyun.com/document_detail/29776.html?spm=a2c4g.11186623.2.25.118327a7POR9m1">DescribeDomainRecords</a> 根据传入参数获取指定主域名的所有解析记录列表。</li>
+<li>通过 <a href="https://help.aliyun.com/document_detail/29778.html?spm=a2c4g.11186623.2.26.118327a7POR9m1">DescribeSubDomainRecords</a> 根据传入参数获取某个固定子域名的所有解析记录列表。</li>
+<li>通过 <a href="https://help.aliyun.com/document_detail/29777.html?spm=a2c4g.11186623.2.27.118327a7POR9m1">DescribeDomainRecordInfo</a> 根据传入参数获取某个固定子域名下的解析记录信息。</li>
+</ol>
+<p>这里我们需要用到的是<code>UpdateDomainRecord</code>和<code>DescribeDomainRecords</code>。通过DescribeDomainRecord获取对应域名解析记录的Record ID，使用Record ID作为参数调用<code>UpdateDomainRecord</code>修改对应解析记录。</p>
+<div class="highlight"><pre class="chroma"><code class="language-Go" data-lang="Go"><span class="kd">func</span> <span class="nf">descRecords</span><span class="p">(</span><span class="nx">domain</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">string</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">updateDomainRecord</span><span class="p">(</span><span class="nx">ipAddr</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">recordID</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
+
+<span class="k">if</span> <span class="nx">dnsIP</span> <span class="o">!=</span> <span class="nx">realIP</span> <span class="p">{</span>
+	<span class="nx">log</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;IPs do not match, requesting DNS change...&#34;</span><span class="p">)</span>
+	<span class="nx">recordID</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">descRecords</span><span class="p">(</span><span class="nx">domain</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">err</span> <span class="p">=</span> <span class="nf">updateDomainRecord</span><span class="p">(</span><span class="nx">realIP</span><span class="p">,</span> <span class="nx">recordID</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>完整代码可参考 <a href="https://gist.github.com/Airine/2e6b751ecec5f52f3ca859213037d176">dynamicDNS.go</a></p>
+<h2 id="开机自动运行脚本">开机自动运行脚本</h2>
+<p>最后一步，开机自动运行脚本。这个脚本我跑在树莓派上，树莓派装的系统是ubuntu@20.14 Server。因为树莓派可能会存在突然宕机的可能，如果每次手动运行脚本比较麻烦。也有可能在树莓派宕机的时候，外网IP刚好发生了变化。因此，需要在树莓派每次开机后在后台自动运行检查IP变化的脚本。开机自动运行的方式有很多种，这里我选择使用了编写<code>/etc/rc.local</code>脚本的方式。<code>/etc/rc.local</code>是一个<code>.sh</code>脚本，会在系统启动后<strong>以<code>root</code>身份执行命令</strong>。如果没有这个文件，可以通过<code>sudo touch /etc/rc.local</code>创建或者<code>sudo vim /etc/rc.local</code>创建并编辑。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh -e
+</span><span class="cp"></span><span class="c1">#</span>
+<span class="c1"># rc.local</span>
+<span class="c1">#</span>
+<span class="c1"># This script is executed at the end of each multiuser runlevel.</span>
+<span class="c1"># Make sure that the script will &#34;exit 0&#34; on success or any other</span>
+<span class="c1"># value on error.</span>
+<span class="c1">#</span>
+<span class="c1"># In order to enable or disable this script just change the execution</span>
+<span class="c1"># bits.</span>
+<span class="c1">#</span>
+<span class="c1"># By default this script does nothing.</span>
+
+<span class="c1"># Log</span>
+<span class="nb">exec</span> 2&gt; /tmp/rc.local.log  <span class="c1"># send stderr from rc.local to a log file</span>
+<span class="nb">exec</span> 1&gt;<span class="p">&amp;</span><span class="m">2</span>                  <span class="c1"># send stdout to the same log file</span>
+<span class="nb">set</span> -x                     <span class="c1"># tell sh to display commands before execution</span>
+
+<span class="c1"># Run the dynamic dns update service</span>
+
+runuser -u ubuntu -- /usr/bin/tmux new-session -s dns -d /usr/local/go/bin/go run /home/ubuntu/go/src/github.com/Airine/dynamic-dns/main.go
+
+<span class="c1"># End</span>
+
+<span class="nb">exit</span> <span class="m">0</span>
+</code></pre></div><p>关于后台运行，我使用了<a href="https://github.com/tmux/tmux"><code>tmux</code></a>这个工具(一款优秀的终端复用软件)。由于<code>/etc/rc.local</code>会使用<code>root</code>身份执行，而我的<code>tmux</code> 和<code>go</code>都属于<code>ubuntu</code>。这里使用了<code>runuser -u &lt;username&gt; -- &lt;command&gt;</code>命令，可以以任意<code>user</code>身份执行<code>--</code>后的命令。</p>
+<h3 id="推荐">推荐</h3>
+<ol>
+<li>
+<p>Golang <a href="https://gist.github.com/Airine/2e6b751ecec5f52f3ca859213037d176">dynamicDNS.go</a></p>
+</li>
+<li>
+<p>开机启动脚本 <a href="https://gist.github.com/Airine/e4673aa84507ab90e24c7a250a94308d">rc.local.sh</a></p>
+</li>
+<li>
+<p><a href="http://louiszhai.github.io/2017/09/30/tmux/">tmux 使用手册</a></p>
+</li>
+</ol></div>
+                    <div class="post_footer">
+                        
+                        <div class="meta">
+                            <div class="info">
+                                <span class="field tags">
+                                    <i class="ri-stack-line"></i>
+                                    
+                                    <a href="https://www.aaron-xin.tech/tags/golang/">Golang</a>
+                                    
+                                    <a href="https://www.aaron-xin.tech/tags/raspberry-pi/">Raspberry Pi</a>
+                                    
+                                    <a href="https://www.aaron-xin.tech/tags/dns/">DNS</a>
+                                    
+                                </span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                
+                
+<div class="doc_comments">
+	<div id="gitalk-container"></div>
+</div>
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script>
+    const gitalk = new Gitalk({
+      clientID: '5a14503d87feacefcfaf',
+      clientSecret: 'efb7551dee0e32cd12cb778b4ae8ab9c0150eb8c',
+      repo: 'Airine.github.io',
+      owner: 'Airine',
+      admin: ['Airine'],
+      id: location.pathname, 
+      distractionFreeMode: false 
+    });
+    (function() {
+      if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+        document.getElementById('gitalk-container').innerHTML = 'Gitalk comments not available by default when the website is previewed locally.';
+        return;
+      }
+      gitalk.render('gitalk-container');
+    })();
+  </script>
+                
+            </div>
+        </div>
+    </div>
+    <a id="back_to_top" href="#" class="back_to_top"><i class="ri-arrow-up-s-line"></i></a>
+    <footer class="footer">
+    <div class="powered_by">
+        <a href="https://varkai.com">Designed by VarKai,</a>
+        <a href="http://www.gohugo.io/">Proudly published with Hugo</a>
+    </div>
+
+    <div class="footer_slogan">
+        <span>心中有爱，眼里有光</span>
+    </div>
+    
+    <script>
+        daovoice('init', {
+            app_id: "c9abd2b4"
+        });
+        daovoice('update');
+    </script>
+</footer>
+    <script src="https://www.aaron-xin.tech/js/jquery-3.5.1.min.js"></script>
+<link href="https://www.aaron-xin.tech/css/fancybox.min.css" rel="stylesheet">
+<script src="https://www.aaron-xin.tech/js/fancybox.min.js"></script>
+<script src="https://www.aaron-xin.tech/js/zozo.js"></script>
+
+
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-162317692-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</body>
+
+</html>

@@ -6,7 +6,17 @@
     <description>Recent content on 一口闰心</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 13 Jan 2021 23:41:45 +0800</lastBuildDate><atom:link href="https://www.aaron-xin.tech/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 21 Jan 2021 11:53:17 +0800</lastBuildDate><atom:link href="https://www.aaron-xin.tech/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>利用Golang反射机制(Reflect)搭建本地LeetCode调试器</title>
+      <link>https://www.aaron-xin.tech/posts/leet-go/</link>
+      <pubDate>Thu, 21 Jan 2021 11:53:17 +0800</pubDate>
+      
+      <guid>https://www.aaron-xin.tech/posts/leet-go/</guid>
+      <description>&lt;p&gt;在使用LeetCode在线平台刷题的时候，可选的debug方法大概有以下几种方式：1. “print”大法，2. playground，3. 调试器（断点调试）。“print”大法是最常见，使用最方便，但是效率也是三种方式中最低的一种。在使用过程中需要不断增加，注释和解注释。playground则对热门语言提供了一些常用的工具函数，但是仍然只能使用“print”大法调试。调试器则属于会员功能，应该为普通断点调试器，且不支持以下语言：C#, Ruby, Swift, &lt;strong&gt;Go&lt;/strong&gt;, Scala, Kotlin, Rust, PHP, Typescript, Racket。&lt;/p&gt;
+&lt;p&gt;本文将介绍如何通过Golang的反射机制实现本地的LeetCode调试器。&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>检测外网IP变化，动态更新阿里云域名解析</title>
       <link>https://www.aaron-xin.tech/posts/dynamic-dns/</link>

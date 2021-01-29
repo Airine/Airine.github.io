@@ -3,32 +3,37 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://www.aaron-xin.tech/tags/go/</loc>
+    <lastmod>2021-01-21T11:53:17+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.aaron-xin.tech/posts/</loc>
+    <lastmod>2021-01-21T11:53:17+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.aaron-xin.tech/tags/</loc>
+    <lastmod>2021-01-21T11:53:17+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.aaron-xin.tech/</loc>
+    <lastmod>2021-01-21T11:53:17+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.aaron-xin.tech/posts/leet-go/</loc>
+    <lastmod>2021-01-21T11:53:17+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://www.aaron-xin.tech/tags/dns/</loc>
     <lastmod>2021-01-13T23:41:45+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://www.aaron-xin.tech/tags/golang/</loc>
-    <lastmod>2021-01-13T23:41:45+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.aaron-xin.tech/posts/</loc>
-    <lastmod>2021-01-13T23:41:45+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://www.aaron-xin.tech/tags/raspberry-pi/</loc>
-    <lastmod>2021-01-13T23:41:45+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.aaron-xin.tech/tags/</loc>
-    <lastmod>2021-01-13T23:41:45+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.aaron-xin.tech/</loc>
     <lastmod>2021-01-13T23:41:45+08:00</lastmod>
   </url>
   
